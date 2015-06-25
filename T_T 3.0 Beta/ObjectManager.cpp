@@ -58,7 +58,8 @@ void CObjectManager::ReadObjects()
 				if (clsid == 35)
 				{
 					DWORD ResourceAddress = EntityAddress;
-					Bomb.IDOwner = Process->ReadMemory<int>(ResourceAddress + 0x1610);
+					// 0x1614 = m_iPlayerC4
+					Bomb.IDOwner = Process->ReadMemory<int>(ResourceAddress + 0x1614);
 					if (Bomb.IDOwner >0 && Bomb.IDOwner<64)
 						Bomb.Position = Entity[Bomb.IDOwner - 1].Position;
 				}

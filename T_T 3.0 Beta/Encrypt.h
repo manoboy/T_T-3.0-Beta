@@ -21,11 +21,11 @@ protected:
 extern CEncrypt *Encrypt;
 
 // STRING OBFUSCATION SUPPORT:
-// true:  use encrypted strings
-// false: use normal strings
+// 1: use encrypted strings
+// 0: use normal strings
 //
 // Change the value only if you know what you are doing!
-#define STRING_OBFUSCATION false
+#define STRING_OBFUSCATION 0
 
 #if STRING_OBFUSCATION
 #ifndef _TempXOR

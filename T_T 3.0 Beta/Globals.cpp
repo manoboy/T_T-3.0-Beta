@@ -3,13 +3,12 @@
 
 namespace Offsets
 {
-
-	DWORD ViewMatrix = 0x049e3874;
-	DWORD LocalPlayer = 0x00a4ca5c;
-	DWORD EntityList = 0x049ee2e4;
-	DWORD RadarBaseOffset = 0x04a22f8c;
-	DWORD SensivityAddress = 0xA521F4;
-	DWORD AttackAddres = 0x02E60284;
+	DWORD ViewMatrix = 0x04a0e164;
+	DWORD LocalPlayer = 0x00a76cdc;
+	DWORD EntityList = 0x04a18bd4;
+	DWORD RadarBaseOffset = 0x04a4d86c;
+	DWORD SensivityAddress = 0x00a7c474;
+	DWORD AttackAddres = 0x02e8aaec;
 	DWORD RadarBaseAddress = 0x0;
 }
 

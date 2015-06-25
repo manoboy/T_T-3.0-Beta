@@ -186,7 +186,7 @@ void CLocalPlayer::Read()
 		ViewAngle = Process->ReadMemory<float>(Address + 0x1590);
 		Fov = Process->ReadMemory<int>(Address + 0x159C);
 		vViewAngle = Process->ReadMemory<Vector3D>(Address + 0x158C);
-		//CrossHairID = Process->ReadMemory<int>(Address + 0x00002400);
+		//CrossHairID = Process->ReadMemory<int>(Address + 0x00002410);
 		PositionOnScreen = Vector3D(CMyWindow::Width / 2, CMyWindow::Height, 0);
 		EyePos = Process->ReadMemory<Vector3D>(Address + 0x104);
 		Position = Process->ReadMemory<Vector3D>(Address + 0x134);

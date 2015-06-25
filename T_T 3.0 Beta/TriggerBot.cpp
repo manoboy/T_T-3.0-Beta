@@ -72,8 +72,8 @@ DWORD WINAPI CTriggerBot::Run()
 
 		if (LocalPlayer->Clip1 <= 0)
 			continue;
-
-		Target = Process->ReadMemory<int>(LocalPlayer->Address + 0x00002400) - 1;
+		// 0x00002410 = m_iCrossHairID
+		Target = Process->ReadMemory<int>(LocalPlayer->Address + 0x00002410) - 1;
 
 		if (Target < 0)
 		{

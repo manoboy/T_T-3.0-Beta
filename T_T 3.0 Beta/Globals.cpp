@@ -17,64 +17,64 @@ namespace Offsets
 
 DWORD Offsets::FindEntityList()
 {
-    vector<byte> pattern = {
-        0x05, 0x00, 0x00, 0x00, 0x00,                   //add eax, client.dll+xxxx
-        0xC1, 0xe9, 0x00,                               //shr ecx, x
-        0x39, 0x48, 0x04,                               //cmp [eax+04], ecx
-    };
-
-    int address, val1, val2;
-
-    address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 1);
-    val1 = Process->ReadMemory<DWORD>(address);
-    address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 7);
-    val2 = Process->ReadMemory<BYTE>(address);
-
+	vector<byte> pattern = {
+		0x05, 0x00, 0x00, 0x00, 0x00,                   //add eax, client.dll+xxxx
+		0xC1, 0xe9, 0x00,                               //shr ecx, x
+		0x39, 0x48, 0x04,                               //cmp [eax+04], ecx
+	};
+	
+	int address, val1, val2;
+	
+	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 1);
+	val1 = Process->ReadMemory<DWORD>(address);
+	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 7);
+	val2 = Process->ReadMemory<BYTE>(address);
+	
 	return val1 + val2 - GlobalVariables::ClientAddress;
 }
 
 DWORD Offsets::FindLocalPlayer()
 {
-    vector<byte> pattern = {
-        0x8D, 0x34, 0x85, 0x00, 0x00, 0x00, 0x00,       //lea esi, [eax*4+client.dll+xxxx]
-        0x89, 0x15, 0x00, 0x00, 0x00, 0x00,             //mov [client.dll+xxxx],edx
-        0x8B, 0x41, 0x08,                               //mov eax,[ecx+08]
-        0x8B, 0x48, 0x00                                //mov ecx,[eax+04]
-    };
-
-    int address, val1, val2;
-
-    address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 3);
-    val1 = Process->ReadMemory<DWORD>(address);
-    address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 18);
-    val2 = Process->ReadMemory<BYTE>(address);
-
+	vector<byte> pattern = {
+		0x8D, 0x34, 0x85, 0x00, 0x00, 0x00, 0x00,       //lea esi, [eax*4+client.dll+xxxx]
+		0x89, 0x15, 0x00, 0x00, 0x00, 0x00,             //mov [client.dll+xxxx],edx
+		0x8B, 0x41, 0x08,                               //mov eax,[ecx+08]
+		0x8B, 0x48, 0x00                                //mov ecx,[eax+04]
+	};
+	
+	int address, val1, val2;
+	
+	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 3);
+	val1 = Process->ReadMemory<DWORD>(address);
+	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 18);
+	val2 = Process->ReadMemory<BYTE>(address);
+	
 	return val1 + val2 - GlobalVariables::ClientAddress;
 }
 
 DWORD Offsets::FindRadarBase()
 {
-    vector<byte> pattern = {
-        0xA1, 0x00, 0x00, 0x00, 0x00,                   //mov eax,[client.dll+xxxx]
-        0xA9, 0x00, 0x00, 0x10, 0x00,                   //test eax, 00100000
-        0x74, 0x06,                                     //je client.dll+2E78C6
-        0x81, 0xCE, 0x00, 0x00, 0x10, 0x00
-    };
-
-    int address, val1, val2;
-
-    address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 1);
-    val1 = Process->ReadMemory<DWORD>(address);
-
-    pattern = {
-        0x8B, 0x47, 0x00,                               //mov eax,[edi+xx]
-        0x8B, 0x0C, 0xB0,                               //mov ecx,[eax+esi*4]
-        0x80, 0x79, 0x0D, 0x00
-    };
-
+	vector<byte> pattern = {
+		0xA1, 0x00, 0x00, 0x00, 0x00,                   //mov eax,[client.dll+xxxx]
+		0xA9, 0x00, 0x00, 0x10, 0x00,                   //test eax, 00100000
+		0x74, 0x06,                                     //je client.dll+2E78C6
+		0x81, 0xCE, 0x00, 0x00, 0x10, 0x00
+	};
+	
+	int address, val1, val2;
+	
+	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 1);
+	val1 = Process->ReadMemory<DWORD>(address);
+	
+	pattern = {
+		0x8B, 0x47, 0x00,                               //mov eax,[edi+xx]
+		0x8B, 0x0C, 0xB0,                               //mov ecx,[eax+esi*4]
+		0x80, 0x79, 0x0D, 0x00
+	};
+	
 	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 2);
 	val2 = Process->ReadMemory<BYTE>(address);
-
+	
 	return val1 + val2 - GlobalVariables::ClientAddress;
 }
 
@@ -87,12 +87,12 @@ DWORD Offsets::FindViewMatrix()
 		0x00, 0x00, 0x00, 0x81, 0xEC, 0x98, 0x03, 0x00,
 		0x00
 	};
-
+	
 	int address, val1;
-
+	
 	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 0);
 	val1 = Process->ReadMemory<DWORD>(address + 0x4EE);
-
+	
 	return val1 + 0x80 - GlobalVariables::ClientAddress;
 }
 
@@ -109,12 +109,12 @@ DWORD Offsets::FindSensitivity()
 		0x8B, 0x40, 0x00,                               // mov eax, [eax+xx]
 		0xFF, 0xD0                                      // call eax
 	};
-
+	
 	int address, val1;
-
+	
 	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 20);
 	val1 = Process->ReadMemory<DWORD>(address);
-
+	
 	return val1 - GlobalVariables::ClientAddress;
 }
 
@@ -129,9 +129,9 @@ DWORD Offsets::FindAttack()
 		0xA8, 0x04,                                     //test al,04
 		0xBF, 0xFD, 0xFF, 0xFF, 0xFF                    //mov edi,FFFFFFFD
 	};
-
+	
 	int address, val1;
-
+	
 	address = FindPattern(GlobalVariables::ClientAddress, 0xffffff, pattern, 2);
 	val1 = Process->ReadMemory<DWORD>(address);
 	
@@ -216,11 +216,11 @@ DWORD Offsets::AddressOffsetFromMask(LPCCH szMask)
 namespace GlobalVariables
 {
 	bool ExitCheat = false;
-
+	
 	DWORD ClientAddress = NULL;
-
+	
 	int MaxPlayers = 64;
-
+	
 	float MouseMultiplyer = 1.0f;
 
 }

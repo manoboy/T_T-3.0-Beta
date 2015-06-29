@@ -9,7 +9,6 @@
 	It would be nice if evryone add sth usefull to this code or modify it to make it even better and relese changes =3
 
 	Lets make best free cheat ever
-
 */
 
 #include "Globals.h"
@@ -64,9 +63,16 @@ DWORD WINAPI MyMainWindow()
 		Sleep(10);
 	}
 
+	Offsets::ViewMatrix       = Offsets::FindViewMatrix();
+	Offsets::LocalPlayer      = Offsets::FindLocalPlayer();
+	Offsets::EntityList       = Offsets::FindEntityList();
+	Offsets::RadarBaseOffset  = Offsets::FindRadarBase();
+	Offsets::SensivityAddress = Offsets::FindSensitivity();
+	Offsets::AttackAddres     = Offsets::FindAttack();
+	Offsets::RadarBaseAddress = 0x0;
+
 	Engine->Init();
 	Engine->InitMenu();
-	//cout << "Game Window Found" << endl;
 
 	HINSTANCE CurrentInstance = GetModuleHandle(NULL);
 	if (!CMyWindow::Init(&CurrentInstance, GameHWND))
@@ -81,9 +87,6 @@ DWORD WINAPI MyMainWindow()
 	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)CTriggerBot::Run, 0, 0, 0);
 	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)CAimBot::Run, 0, 0, 0);
 	CreateThread(0, 0, (LPTHREAD_START_ROUTINE)CRecoilControl::Run, 0, 0, 0);
-	//Update()
-
-	//SticToWindow()
 	
 	Visuals->InitPosiitons();
 	
@@ -91,7 +94,6 @@ DWORD WINAPI MyMainWindow()
 	CRadar::y = CMyWindow::CenterY - CRadar::Size;
 
 	CMyWindow::Run();
-
 
 	ExitThread(0);
 }

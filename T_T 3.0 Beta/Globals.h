@@ -10,6 +10,7 @@
 #include <cstring>
 #include <cstdint>
 #include <fstream>
+#include <vector>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <Wincrypt.h>
@@ -37,6 +38,19 @@ namespace Offsets
 	extern DWORD SensivityAddress;
 	extern DWORD AttackAddres;
 	extern DWORD RadarBaseAddress;
+
+	DWORD FindViewMatrix();
+	DWORD FindLocalPlayer();
+	DWORD FindEntityList();
+	DWORD FindRadarBase();
+	DWORD FindSensitivity();
+	DWORD FindAttack();
+
+	DWORD FindPattern(DWORD start, DWORD size, vector<BYTE> sig);
+	DWORD FindPattern(DWORD start, DWORD size, vector<BYTE> sig, DWORD addressOffset);
+	PCHAR MaskFromSig(const vector<BYTE> sig);
+	BOOL DataCompare(PBYTE pData, PBYTE bMask, LPCCH szMask);
+	DWORD AddressOffsetFromMask(LPCCH szMask);
 }
 
 namespace GlobalVariables
